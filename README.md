@@ -1,411 +1,85 @@
-# Vanuatu Smart Transport
+Vanuatu Smart Transport
+Cloud Computing Project | ITDI204
 
-## Project Information
+A full-stack, cloud-native transportation management platform designed to streamline transit scheduling, booking, and real-time coordination in Vanuatu.
 
-**Project Name:** Vanuatu Smart Transport
+Project Details
+Team: Team G3 (Junior Chris Kavick, Brown Tamata, Ralph Theophile)
 
-**Course:** ITDI203 Front-End and Backend
+Deployment Platform: Render
 
-**Project Group:** Team G3
+Repository: [Link to your GitHub Repo]
 
-### Team Members
+Architecture Overview
+The application utilizes a decoupled cloud architecture for high availability and scalability.
 
-* Junior Chris Kavick
-* Brown Tamata
-* Ralph Theophile
+Frontend: React.js (Static Site deployed on Render)
 
----
+Backend: Node.js/Express.js (Web Service with persistent connection pooling)
 
-# Project Overview
+Database: Managed PostgreSQL (with SSL enabled)
 
-Vanuatu Smart Transport is a cloud-based transportation management system designed to simplify trip scheduling, booking management, and transport coordination across Vanuatu.
+CI/CD Pipeline: Automated workflows via GitHub Actions
 
-The application supports three user roles:
 
-* **Passengers** – Search and book available trips.
-* **Drivers** – Manage assigned trips and update transport information.
-* **Administrators** – Manage users, trips, bookings, and monitor system activities.
+Source: Shutterstock
+Explore
+Cloud Deployment & CI/CD
+This project features an automated deployment pipeline to minimize manual intervention.
 
-The system is developed using a modern web architecture with a React frontend, Node.js/Express backend, PostgreSQL database, and cloud deployment through Render.
+Automated Workflow
+Branches: main (Production) and Staging (Testing/Integration).
 
----
+CI/CD Pipeline: Every push to main or Staging triggers a GitHub Action that:
 
-# Key Features
+Installs dependencies (npm install).
 
-### Passenger Features
+Runs compilation and integrity tests.
 
-* User registration and login
-* Browse available trips
-* Book transport services
-* View booking history
-* Offline access using IndexedDB
+Triggers Render webhooks for automated zero-downtime hot-reloads.
 
-### Driver Features
+Environment & Security
+Environment Variables: Managed via Render dashboards for dynamic configuration (DATABASE_URL, PORT, NODE_ENV).
 
-* Driver authentication
-* Create and manage trips
-* Real-time location updates using Socket.IO
+Secrets: Sensitive credentials (e.g., RENDER_API_KEY, JWT_SECRET) are stored in GitHub Repository Secrets to ensure no sensitive data is exposed in the codebase.
 
-### Administrator Features
+API & Database
+The backend implements a RESTful API to manage transit operations.
 
-* Manage users
-* Manage trips
-* Manage bookings
-* View transport statistics and reports
-* Monitor overall system activity
+Key API Routes
+Method	Endpoint	Purpose
+POST	/signup	User registration (Bcrypt hashing, role-based validation).
+POST	/login	Authentication and JWT issuance.
+GET	/trips	Fetch all available transit routes.
+POST	/bookings	Seat reservation with capacity verification.
+GET	/admin/data	Secure aggregate system diagnostic collection.
+Data Model
+Installation & Setup
+Clone the repo: git clone <url>
 
----
+Setup Backend:
 
-# System Architecture
+Bash
+cd backend
+npm install
+# Create .env with DATABASE_URL, PORT, and JWT_SECRET
+node server.js
+Setup Frontend:
 
-## Frontend
-
-Technology:
-
-* React.js
-* React Router
-* IndexedDB
-
-Responsibilities:
-
-* User interface
-* Trip management screens
-* Booking management
-* Offline data caching
-
-Location:
-
-```text
-frontend/
-└── src/
-    ├── components/
-    ├── pages/
-    ├── api/
-    └── utils/
-```
-
-Important Files:
-
-* `src/api/APIBook.js`
-* `src/utils/indexDB.js`
-
----
-
-## Backend
-
-Technology:
-
-* Node.js
-* Express.js
-* Socket.IO
-* PostgreSQL
-
-Responsibilities:
-
-* Authentication
-* User management
-* Trip management
-* Booking management
-* Real-time communication
-
-Location:
-
-```text
-backend/
-└── server.js
-```
-
----
-
-## Database
-
-Database Management System:
-
-* PostgreSQL
-
-### Users Table
-
-```sql
-users(
-    id,
-    username,
-    email,
-    password_hash,
-    role,
-    contact
-)
-```
-
-### Trips Table
-
-```sql
-trips(
-    id,
-    type,
-    driver_id,
-    pickup_location,
-    destination_location,
-    trip_time,
-    start_time,
-    end_time,
-    capacity,
-    booked,
-    status,
-    bus_size,
-    vehicle_type,
-    availability,
-    contact,
-    email,
-    location
-)
-```
-
-### Bookings Table
-
-```sql
-bookings(
-    id,
-    trip_id,
-    user_id,
-    vehicle,
-    price,
-    passengers,
-    status
-)
-```
-
----
-
-# Development Workflow
-
-The project follows a GitHub-based development workflow:
-
-1. Developers create feature branches.
-2. Changes are committed and pushed to GitHub.
-3. Pull Requests are created for review.
-4. Code is merged into the main branch.
-5. Render automatically deploys the latest version.
-
----
-
-# Installation Guide
-
-## Prerequisites
-
-Install:
-
-* Node.js
-* npm
-* PostgreSQL
-* Git
-
----
-
-## Clone Repository
-
-```bash
-git clone <repository-url>
-cd vanuatu-smart-transport
-```
-
----
-
-## Frontend Setup
-
-```bash
+Bash
+cd frontend
 npm install
 npm start
-```
+Problem Solving & Future Roadmap
+Problem Solving: Challenges regarding PostgreSQL network connectivity and Render cross-origin blocking were resolved by implementing sslmode=require and refining CORS policy middleware.
 
-Frontend runs on:
+Future Improvements:
 
-```text
-http://localhost:3000
-```
+Integration of real-time GPS map visualizations (Leaflet.js).
 
----
+Comprehensive E2E testing using Playwright.
 
-## Backend Setup
+Mobile-first responsive UX refinement.
 
-Navigate to backend folder:
-
-```bash
-cd backend
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Create a `.env` file:
-
-```env
-DB_USER=postgres
-DB_PASSWORD=your_password
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=vanuatu_transport
-PORT=5001
-```
-
-Start backend server:
-
-```bash
-node server.js
-```
-
-Backend runs on:
-
-```text
-http://localhost:5001
-```
-
----
-
-# Deployment
-
-Platform:
-
-* Render
-
-Deployment Components:
-
-### Frontend Service
-
-* React application
-* Automatic deployment from GitHub
-
-### Backend Service
-
-* Node.js API
-* Automatic deployment from GitHub
-
-### Database
-
-* PostgreSQL
-
-Benefits:
-
-* Cloud hosting
-* Continuous deployment
-* Public accessibility
-* Scalability
-
----
-
-# API Overview
-
-## Authentication
-
-### Register User
-
-```http
-POST /signup
-```
-
-Example Request:
-
-```json
-{
-  "username": "test_admin",
-  "email": "admin@example.com",
-  "password": "Admin123",
-  "role": "Admin"
-}
-```
-
----
-
-### Login
-
-```http
-POST /login
-```
-
----
-
-## Trips
-
-### Get All Trips
-
-```http
-GET /trips
-```
-
-### Create Trip
-
-```http
-POST /trips
-```
-
----
-
-## Bookings
-
-### Create Booking
-
-```http
-POST /bookings
-```
-
-### Get User Bookings
-
-```http
-GET /bookings
-```
-
----
-
-# Test Accounts
-
-### Administrator
-
-| Username   | Password |
-| ---------- | -------- |
-| testAdmin | Admin@123 |
-
-### Passenger
-
-| Username       | Password     |
-| -------------- | ------------ |
-| testPassenger | Passenger@123 |
-
-### Driver
-
-| Username    | Password  |
-| ----------- | --------- |
-| testDriver | Driver@123 |
-
----
-
-# Sample User Creation
-
-```bash
-curl -X POST http://localhost:5001/signup \
--H "Content-Type: application/json" \
--d '{
-  "username":"test_admin",
-  "email":"admin@example.com",
-  "password":"Admin123",
-  "role":"Admin"
-}'
-```
-
----
-
-# Future Improvements
-
-* Mobile application support
-* GPS tracking integration
-* Online payment gateway
-* SMS notifications
-* Advanced analytics dashboard
-* Route optimization
-
----
-
-# Conclusion
-
-Vanuatu Smart Transport demonstrates the implementation of cloud computing technologies through a full-stack web application. The project integrates React, Node.js, PostgreSQL, GitHub, and Render to provide a scalable and accessible transportation management solution for passengers, drivers, and administrators.
+Conclusion
+Vanuatu Smart Transport successfully demonstrates modern cloud practices—specifically the transition from local development to production through automated CI/CD pipelines, secure secrets management, and robust database abstraction.
