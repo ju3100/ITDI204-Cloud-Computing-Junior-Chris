@@ -64,7 +64,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://project-assesment-204.onrender.com",
+    origin: "https://itdi204-cloud-computing-junior-chris-4.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE"]
   }
 });
