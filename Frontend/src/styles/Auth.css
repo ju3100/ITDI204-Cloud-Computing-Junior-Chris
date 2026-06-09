@@ -1,0 +1,354 @@
+/* ==================== CSS VARIABLES ==================== */
+:root {
+  --primary-color: #2563eb;
+  --primary-light: #3b82f6;
+  --danger: #ef4444;
+  --bg-dark-start: #0b1220;
+  --bg-dark-end: #0f1724;
+  --surface-dark: rgba(30, 41, 59, 0.45);
+  --border-dark: rgba(255, 255, 255, 0.08);
+  --text-main: #ffffff;
+  --text-muted: #cbd5e1;
+  --shadow-lg: 0 20px 50px rgba(2, 6, 23, 0.5);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== CONTAINER WITH LIVE ANIMATION ==================== */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: var(--bg-dark-start);
+  position: relative;
+  overflow: hidden;
+
+  /* keep a solid fallback color while decorative layers animate */
+  background-color: var(--bg-dark-start);
+}
+
+/* AMBIENT BACKGROUND FLOATING ANIMATION KEYFRAMES */
+@keyframes dynamicAmbientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Layered animated background: blurred photo moves slowly, plus a subtle color pulse overlay */
+.auth-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../images/scaled.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: blur(1px) brightness(0.55) saturate(0.95);
+  transform-origin: center;
+  z-index: 0;
+  will-change: transform, filter;
+  animation: floatBG 40s ease-in-out infinite;
+  @media (min-width: 768px) {
+    animation: 60s ease-in-out infinite;
+  }
+}
+
+.auth-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1200px 600px at 15% 20%, rgba(37,99,235,0.12), transparent 20%),
+              radial-gradient(1000px 500px at 85% 80%, rgba(16,185,129,0.06), transparent 18%);
+  mix-blend-mode: overlay;
+  opacity: 0.95;
+  z-index: 1;
+  pointer-events: none;
+  animation: pulseOverlay 8s ease-in-out infinite;
+}
+
+@keyframes floatBG {
+  0% { transform: scale(1) translateY(0px) translateX(0px); }
+  25% { transform: scale(1.03) translateY(-6px) translateX(-3px); }
+  50% { transform: scale(1.06) translateY(-2px) translateX(4px); }
+  75% { transform: scale(1.03) translateY(4px) translateX(-2px); }
+  100% { transform: scale(1) translateY(0px) translateX(0px); }
+}
+
+@keyframes pulseOverlay {
+  0% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 0.9; transform: scale(1); }
+}
+
+/* ==================== CARD LAYOUT ==================== */
+.auth-card {
+  width: 100%;
+  max-width: 340px;
+  background: transparent 1%;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  padding: 24px 20px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-dark);
+  text-align: center;
+  box-sizing: border-box;
+
+  /* Smooth entrance card pop */
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== LOGO ==================== */
+.logo1-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.logo1 {
+  width: 72px;
+  height: auto;
+  transition: var(--transition);
+}
+
+.logo1:hover {
+  transform: scale(1.05);
+}
+
+/* ==================== TYPOGRAPHY ==================== */
+.auth-card h1 {
+  color: var(--text-main);
+  margin: 0 0 4px 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.auth-card h2 {
+  color: var(--text-muted);
+  margin: 0 0 24px 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.auth-welcome {
+  color: #34d399;
+  font-weight: 600;
+}
+
+/* make general paragraph and label text clearly readable */
+.auth-card p,
+.auth-card label,
+.auth-card select,
+.auth-card .auth-switch,
+.auth-card .input-field {
+  color: var(--text-main);
+}
+
+/* ==================== INTERACTIVE FORM FIELDS ==================== */
+.auth-card input,
+.auth-card select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.6);
+  font-size: 0.9rem;
+  color: #ffffff;
+  transition: var(--transition);
+}
+
+.auth-card input:focus,
+.auth-card select:focus {
+  outline: none;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.auth-card input::placeholder {
+  color: rgba(148, 163, 184, 0.6);
+}
+
+/* ==================== INPUT WITH ICON (PROFESSIONAL) ==================== */
+.input-group {
+  position: relative;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.input-group .input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.input-group .input-field {
+  padding-left: 44px; /* make room for icon */
+  padding-right: 44px;
+  transition: box-shadow 220ms ease, border-color 220ms ease, background 220ms ease;
+  font-size: 0.95rem; /* slightly larger readable input text */
+}
+
+.input-group .input-action {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.input-group .input-field:focus + .input-icon,
+.input-group .input-field:focus ~ .input-icon {
+  color: var(--primary-light);
+}
+
+/* subtle inner glow on focus for the whole group */
+.input-group:focus-within .input-field {
+  box-shadow: 0 6px 18px rgba(14, 42, 120, 0.12);
+  border-color: var(--primary-light);
+  background: rgba(15, 23, 42, 0.85);
+}
+
+/* placeholder sizing & color */
+.input-group .input-field::placeholder {
+  color: rgba(203, 213, 225, 0.7);
+  font-size: 0.85rem;
+}
+
+.auth-card select option {
+  color: #ffffff;
+  background: #0f172a;
+}
+
+/* ==================== ERRORS & NOTIFICATIONS ==================== */
+.auth-input-error {
+  border-color: var(--danger) !important;
+  background: rgba(239, 68, 68, 0.05) !important;
+}
+
+.auth-field-error {
+  display: block;
+  color: #fca5a5;
+  font-size: 0.8rem;
+  text-align: left;
+  margin-top: -12px;
+  margin-bottom: 16px;
+  padding-left: 4px;
+}
+
+.auth-error {
+  color: #fca5a5;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+/* ==================== FORM ACTION SUBMIT ==================== */
+.auth-card button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 4px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.auth-card button:hover {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+}
+
+.auth-card button:active {
+  transform: translateY(-1px);
+  filter: brightness(0.95);
+}
+
+/* ==================== TOGGLE INTERFACE SWITCHERS ==================== */
+.auth-switch {
+  margin-top: 20px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.88rem;
+  display: inline-block;
+  transition: var(--transition);
+}
+
+.auth-switch:hover {
+  color: var(--primary-light);
+  text-decoration: none;
+}
+
+/* ==================== RESPONSIVE VIEWPORTS ==================== */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 16px;
+    background-size: 180% 180%; /* Slightly more scaling on small mobile viewports to preserve clean motion vectors */
+  }
+
+  .auth-card {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .auth-card h1 {
+    font-size: 1.4rem;
+  }
+
+  .logo1 {
+    width: 64px;
+  }
+
+  .input-group .input-field {
+    font-size: 0.92rem;
+  }
+
+  .input-group .input-field::placeholder {
+    font-size: 0.8rem;
+  }
+}

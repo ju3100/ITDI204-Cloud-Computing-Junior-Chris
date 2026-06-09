@@ -1,0 +1,257 @@
+/* ==================== CSS VARIABLES ==================== */
+:root {
+  --primary-color: #2563eb;
+  --primary-light: #3b82f6;
+  --success: #10b981;
+  --neutral-50: #0b1220;
+  --neutral-100: #0f1724;
+  --neutral-200: #111827;
+  --neutral-700: #374151;
+  --neutral-900: #e6eef8;
+  --text-muted: #94a3b8;
+  --shadow-md: 0 6px 18px rgba(2, 6, 23, 0.6);
+  --shadow-lg: 0 12px 30px rgba(2, 6, 23, 0.65);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== CHART CARD CONTAINERS ==================== */
+.chart-card {
+  background: rgba(30, 41, 59, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  margin-top: 20px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: var(--transition);
+}
+
+/* Lighter blend card tint to overlay perfectly on dark admin canvas */
+.chart-card.overview {
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.06), rgba(15, 23, 42, 0.2));
+  border: 1px solid rgba(37, 99, 235, 0.15);
+}
+
+.chart-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+
+/* ==================== HEADER CONTROLS VIEWPORT LAYER ==================== */
+.chart-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.title-block .chart-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.title-block .chart-subtitle {
+  margin: 4px 0 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.chart-controls-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* ==================== INLINE METRIC HIGHLIGHTS ==================== */
+.chart-kpis {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.chart-kpis .kpi {
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.4);
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  text-align: left;
+}
+
+.chart-kpis .kpi.highlight {
+  border-color: rgba(16, 185, 129, 0.2);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.kpi-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.kpi-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+}
+
+.chart-kpis .kpi.highlight .kpi-value {
+  color: var(--success);
+}
+
+/* ==================== FILTER INTERACTIVE SELECT FIELDS ==================== */
+.chart-filter select {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #0f172a;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition);
+  color: #ffffff;
+  font-weight: 600;
+  outline: none;
+}
+
+.chart-filter select:hover {
+  border-color: var(--primary-light);
+}
+
+.chart-filter select:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+  background: #0f172a;
+}
+
+/* ==================== MODULAR VISUAL LAYOUT GRID BREAKDOWN ==================== */
+.charts-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .charts-grid-layout { grid-template-columns: 1fr; }
+}
+
+.chart-section-pane {
+  background: rgba(15, 23, 42, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.chart-section-pane h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin: 0 0 16px 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* ==================== EMPTY STATE ILLUSTRATOR HOOK ==================== */
+.empty-chart-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  color: var(--text-muted);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.2);
+}
+
+/* ==================== RECHARTS OVERRIDES & TOOLTIPS ==================== */
+.recharts-responsive-container {
+  margin-bottom: 4px;
+}
+
+.recharts-tooltip-wrapper {
+  font-size: 13px;
+}
+
+.recharts-default-tooltip {
+  background: #0f172a !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--shadow-md) !important;
+  color: var(--neutral-900) !important;
+  padding: 10px 14px !important;
+}
+
+.recharts-tooltip-label {
+  color: var(--neutral-900) !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px;
+}
+
+.recharts-legend-item {
+  font-size: 12px !important;
+  color: var(--text-muted) !important;
+}
+
+/* ==================== RESPONSIVE VIEWPORT BREAKPOINTS ==================== */
+@media (max-width: 1024px) {
+  .charts-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-card {
+    padding: 18px;
+  }
+
+  .chart-header-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .chart-controls-wrapper {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .chart-kpis {
+    justify-content: space-between;
+  }
+
+  .chart-filter select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 540px) {
+  .chart-card {
+    padding: 14px;
+  }
+
+  .title-block .chart-title {
+    font-size: 1.15rem;
+  }
+
+  .chart-filter select {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}

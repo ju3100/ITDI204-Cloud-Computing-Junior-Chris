@@ -1,0 +1,58 @@
+.logo-container {
+  display: flex;
+  align-items: center;
+  background: transparent !important;
+}
+
+.navbar .logo,
+.logo {
+  display: block;
+  max-width: 90px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.logout-btn {
+  width: 3rem;
+  height: 3rem;
+  min-width: 44px;
+  min-height: 44px;
+  background: linear-gradient(135deg, #0b5347, #26dcd3);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  font-size: 18px;
+}
+
+/* hover */
+.logout-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #26a2dc, #b91c1c);
+}
+
+/* click */
+.logout-btn:active {
+  transform: scale(0.95);
+}
+
+h2 {
+  color: #ffffff;
+  
+  margin-left: -10px;
+}
+
+@media (max-width: 480px) {
+  .logout-btn { width: 44px; height: 44px; font-size: 16px; }
+  .navbar .logo, .logo { max-width: 64px; }
+}

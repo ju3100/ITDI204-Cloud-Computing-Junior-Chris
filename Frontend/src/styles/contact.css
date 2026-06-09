@@ -1,0 +1,197 @@
+/* contact.css - Dark Glassmorphism Theme (Booking Match) */
+
+:root {
+  --contact-bg: #0f172a;
+  --contact-surface: rgba(30, 41, 59, 0.7);
+  --contact-border: rgba(255, 255, 255, 0.1);
+  --contact-primary: #3b82f6;
+  --contact-primary-hover: #60a5fa;
+  --contact-accent: #8b5cf6;
+  --contact-text: #f8fafc;
+  --contact-text-muted: #94a3b8;
+  --contact-radius: 24px;
+}
+
+.contact-page {
+  min-height: 100vh;
+  padding: 60px 20px;
+  background: radial-gradient(circle at top left, #1e293b, #0f172a);
+  color: var(--contact-text);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-card {
+  background: var(--contact-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--contact-border);
+  border-radius: var(--contact-radius);
+  padding: 50px;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.contact-card h3 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: white;
+  letter-spacing: -0.5px;
+}
+
+.contact-subtext {
+  font-size: 1.1rem;
+  color: var(--contact-text-muted);
+  margin-bottom: 40px;
+}
+
+.contact-grid {
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+/* LEFT SIDE - INFO BOX */
+.contact-info {
+  flex: 1;
+  min-width: 280px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid var(--contact-border);
+}
+
+.contact-info h3 {
+  font-size: 1.4rem;
+  margin-bottom: 25px;
+  color: var(--contact-primary-hover);
+  font-weight: 700;
+}
+
+.contact-info p {
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+  color: var(--contact-text);
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-info p strong {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--contact-text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.contact-note {
+  margin-top: 30px !important;
+  font-size: 0.95rem !important;
+  color: var(--contact-text-muted) !important;
+  line-height: 1.6;
+  border-top: 1px solid var(--contact-border);
+  padding-top: 20px;
+}
+
+/* RIGHT SIDE - FORM */
+.contact-form {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 300px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 16px;
+  border: 1px solid var(--contact-border);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+  color: white;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #64748b;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--contact-primary);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.contact-form button {
+  background: linear-gradient(135deg, var(--contact-primary), var(--contact-accent));
+  color: white;
+  border: none;
+  padding: 16px;
+  cursor: pointer;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  margin-top: 10px;
+}
+
+.contact-form button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.contact-status {
+  margin-top: 5px;
+  padding: 12px;
+  background: rgba(16, 185, 129, 0.1);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 10px;
+  font-weight: 500;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .contact-card { padding: 28px; }
+  .contact-card h3 { font-size: 1.4rem; }
+  .contact-grid { gap: 20px; }
+  .contact-card { padding: 28px 20px; }
+}
+
+@media (max-width: 480px) {
+  .contact-card { padding: 18px 12px; }
+  .contact-grid { gap: 12px; flex-direction: column; }
+  .contact-info, .contact-form { min-width: 100%; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

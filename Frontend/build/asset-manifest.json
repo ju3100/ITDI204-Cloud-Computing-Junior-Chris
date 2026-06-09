@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.be58ddd4.css",
+    "main.js": "/static/js/main.11aa2c32.js",
+    "static/media/logo2.png": "/static/media/logo2.a0c6ead9d7facd2db4f0.png",
+    "static/media/Private-Hire.jpg": "/static/media/Private-Hire.f10549f8761e755f97a9.jpg",
+    "static/media/Taxi.jpg": "/static/media/Taxi.637394d1dcadf40fb6bf.jpg",
+    "static/media/image-3.webp": "/static/media/image-3.0e3b5b37de8748126261.webp",
+    "static/media/bus.jpg": "/static/media/bus.78e0d1ae405cf0f52764.jpg",
+    "static/media/camion.jpg": "/static/media/camion.cde933aa1bbd72869b91.jpg",
+    "static/media/logo.png": "/static/media/logo.f8bb65367c4365de1cf8.png",
+    "index.html": "/index.html",
+    "main.be58ddd4.css.map": "/static/css/main.be58ddd4.css.map",
+    "main.11aa2c32.js.map": "/static/js/main.11aa2c32.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be58ddd4.css",
+    "static/js/main.11aa2c32.js"
+  ]
+}
