@@ -9,22 +9,43 @@ const bcrypt = require("bcrypt");
 
 const ROLES = ["Passenger", "Driver", "Admin"];
 
-// ================= DATABASE =================
-// Use a single Pool instance; enable SSL (rejectUnauthorized false) for hosted DBs if provided
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: Number(process.env.DB_PORT),
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+const useConnectionString = Boolean(process.env.DATABASE_URL);
 
-pool.connect()
-  .then(() => console.log("PostgreSQL connected"))
-  .catch(err => console.error("Database connection error:", err));
+const poolConfig = useConnectionString
+  ? {
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+      max: 10,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 5000
+    }
+  : {
+      user: process.env.DB_USER,
+      host: process.env.DB_HOST,
+      database: process.env.DB_NAME,
+      password: process.env.DB_PASSWORD,
+      port: Number(process.env.DB_PORT) || 5432,
+      // allow explicit opt-out via DB_SSL=false for local dev
+      ssl: (process.env.DB_SSL || '').toLowerCase() === 'true' ? { rejectUnauthorized: false } : false,
+      max: 10,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 5000
+    };
+
+const pool = new Pool(poolConfig);
+
+// Test initial connection (non-fatal) and surface a concise diagnostic if it fails.
+(async () => {
+  try {
+    const client = await pool.connect();
+    client.release();
+    console.log('PostgreSQL connected');
+  } catch (err) {
+    console.error('Database connection error:', err && err.message ? err.message : err);
+    console.error('DB host used:', useConnectionString ? 'DATABASE_URL' : `${process.env.DB_HOST}:${process.env.DB_PORT}`);
+    console.error('If you expect to connect locally, set DB_SSL=false. For hosted DBs, ensure SSL is enabled.');
+  }
+})();
 
 // Global error handlers to surface crashes in platform logs
 process.on('uncaughtException', (err) => {
