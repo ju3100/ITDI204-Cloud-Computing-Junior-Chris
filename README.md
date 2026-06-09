@@ -4,11 +4,11 @@ Cloud Computing Project | ITDI204
 A full-stack, cloud-native transportation management platform designed to streamline transit scheduling, booking, and real-time coordination in Vanuatu.
 
 Project Details
-Team: Team G3 (Junior Chris Kavick, Brown Tamata, Ralph Theophile)
+Name: Junior Chris Kavick
 
 Deployment Platform: Render
 
-Repository: [Link to your GitHub Repo]
+Repository: https://github.com/ju3100/ITDI204-Cloud-Computing-Junior-Chris.git
 
 Architecture Overview
 The application utilizes a decoupled cloud architecture for high availability and scalability.
@@ -22,8 +22,7 @@ Database: Managed PostgreSQL (with SSL enabled)
 CI/CD Pipeline: Automated workflows via GitHub Actions
 
 
-Source: Shutterstock
-Explore
+Source:
 Cloud Deployment & CI/CD
 This project features an automated deployment pipeline to minimize manual intervention.
 
